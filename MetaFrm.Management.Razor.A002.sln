@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Management.Razor.A0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{807CF4F2-3CC7-4244-A233-C7E0EA35983F}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
