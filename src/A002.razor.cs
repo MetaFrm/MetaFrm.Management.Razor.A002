@@ -23,8 +23,6 @@ namespace MetaFrm.Management.Razor
         internal List<ColumnDefinitions>? ColumnDefinitions;
 
         internal DictionaryModel SelectItem = new();
-
-        internal GroupWindowStatus GroupWindowStatus = GroupWindowStatus.Close;
         #endregion
 
 
@@ -68,9 +66,7 @@ namespace MetaFrm.Management.Razor
         #region IO
         private void New()
         {
-            if (this.SelectItem.DICTIONARY_ID != null || this.GroupWindowStatus != GroupWindowStatus.Close)
-                this.SelectItem = new();
-            this.GroupWindowStatus = GroupWindowStatus.Maximize;
+            this.SelectItem = new();
         }
 
         private void OnSearch()
@@ -258,7 +254,6 @@ namespace MetaFrm.Management.Razor
                 if (response.Status == Status.OK)
                 {
                     this.New();
-                    this.Close();
                     this.ToastShow("Completed", $"{this.GetAttribute("Title")} deleted successfully.", Alert.ToastDuration.Long);
                 }
                 else
@@ -307,8 +302,6 @@ namespace MetaFrm.Management.Razor
                 WHERE_SQL = item.WHERE_SQL,
                 ORDER_BY_SQL = item.ORDER_BY_SQL,
             };
-
-            this.GroupWindowStatus = GroupWindowStatus.Maximize;
         }
 
         private void Copy()
@@ -317,11 +310,6 @@ namespace MetaFrm.Management.Razor
             {
                 this.SelectItem.DICTIONARY_ID = null;
             }
-        }
-
-        private void Close()
-        {
-            this.GroupWindowStatus = GroupWindowStatus.Close;
         }
         #endregion
     }

@@ -11,69 +11,61 @@
 @using Microsoft.AspNetCore.Components.Web
 @inherits BaseComponent
 
-<div>
-    <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
+<TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-    @if (this.GroupWindowStatus == GroupWindowStatus.Close)
-    {
-        <DataGridControl TItem="DictionaryModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.A002ViewModel.SelectResultModel" PagingEnabled="true"
-                     TableClass="table-hover"
-                     RowAdd="this.New"
-                     MovePage="this.Search"
-                     RowModify="this.RowModify">
-            <SearchInputControl>
-                <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
-            </SearchInputControl>
-            <SearchButtonControl>
-                <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
-                    <span class="oi oi-magnifying-glass" />
-                </button>
-            </SearchButtonControl>
-        </DataGridControl>
-    }
-    else
-    {
-        <GroupControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))"
-                  Close="this.Close" GroupWindowStatus="this.GroupWindowStatus">
-            <Control>
-                <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
-                    <DataAnnotationsValidator />
+<DataGridControl TItem="DictionaryModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.A002ViewModel.SelectResultModel" PagingEnabled="true"
+                 TableClass="table-hover"
+                 RowAdd="this.New"
+                 MovePage="this.Search"
+                 RowModify="this.RowModify">
+    <SearchInputControl>
+        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+    </SearchInputControl>
+    <SearchButtonControl>
+        <button class="btn btn-outline-primary btn-rounded-end" type="button" @onclick="(() => this.OnSearch())">
+            <span class="oi oi-magnifying-glass" />
+        </button>
+    </SearchButtonControl>
+</DataGridControl>
 
-                    <FieldControl Label="Dictionary ID" Value="this.SelectItem.DICTIONARY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
-                    <FieldControl Label="Code">
-                        <Control>
-                            <InputText id="code" class="form-control" placeholder="Code" @bind-Value="this.SelectItem.CODE" />
-                            <ValidationMessage For="@(()=>this.SelectItem.CODE)" />
-                        </Control>
-                    </FieldControl>
-                    <FieldControl Label="Description">
-                        <Control>
-                            <InputText id="description" class="form-control" placeholder="Description" @bind-Value="this.SelectItem.DESCRIPTION" />
-                            <ValidationMessage For="@(()=>this.SelectItem.DESCRIPTION)" />
-                        </Control>
-                    </FieldControl>
-                    <FieldControl Label="SQL">
-                        <Control>
-                            <InputTextArea id="sql" class="form-control" rows="50" style="height: 340px;" placeholder="SQL" @bind-Value="this.SelectItem.SQL" />
-                            <ValidationMessage For="@(()=>this.SelectItem.SQL)" />
-                        </Control>
-                    </FieldControl>
-                    <FieldControl Label="Where SQL">
-                        <Control>
-                            <InputText id="wheresql" class="form-control" placeholder="Where SQL" @bind-Value="this.SelectItem.WHERE_SQL" />
-                            <ValidationMessage For="@(()=>this.SelectItem.WHERE_SQL)" />
-                        </Control>
-                    </FieldControl>
-                    <FieldControl Label="Order by SQL" CssClassDiv="pt-1 pb-2">
-                        <Control>
-                            <InputText id="orderbysql" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.ORDER_BY_SQL" />
-                            <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
-                        </Control>
-                    </FieldControl>
+<ModalControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))">
+    <Control>
+        <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
+            <DataAnnotationsValidator />
 
-                    <CommandControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
-                </EditForm>
-            </Control>
-        </GroupControl>
-    }
-</div>
+            <FieldControl Label="Dictionary ID" Value="this.SelectItem.DICTIONARY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
+            <FieldControl Label="Code">
+                <Control>
+                    <InputText id="code" class="form-control" placeholder="Code" @bind-Value="this.SelectItem.CODE" />
+                    <ValidationMessage For="@(()=>this.SelectItem.CODE)" />
+                </Control>
+            </FieldControl>
+            <FieldControl Label="Description">
+                <Control>
+                    <InputText id="description" class="form-control" placeholder="Description" @bind-Value="this.SelectItem.DESCRIPTION" />
+                    <ValidationMessage For="@(()=>this.SelectItem.DESCRIPTION)" />
+                </Control>
+            </FieldControl>
+            <FieldControl Label="SQL">
+                <Control>
+                    <InputTextArea id="sql" class="form-control" rows="50" style="height: 340px;" placeholder="SQL" @bind-Value="this.SelectItem.SQL" />
+                    <ValidationMessage For="@(()=>this.SelectItem.SQL)" />
+                </Control>
+            </FieldControl>
+            <FieldControl Label="Where SQL">
+                <Control>
+                    <InputText id="wheresql" class="form-control" placeholder="Where SQL" @bind-Value="this.SelectItem.WHERE_SQL" />
+                    <ValidationMessage For="@(()=>this.SelectItem.WHERE_SQL)" />
+                </Control>
+            </FieldControl>
+            <FieldControl Label="Order by SQL" CssClassDiv="pt-1 pb-2">
+                <Control>
+                    <InputText id="orderbysql" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.ORDER_BY_SQL" />
+                    <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
+                </Control>
+            </FieldControl>
+
+            <CommandControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+        </EditForm>
+    </Control>
+</ModalControl>
