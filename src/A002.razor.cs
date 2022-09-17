@@ -3,7 +3,6 @@ using MetaFrm.Extensions;
 using MetaFrm.Management.Razor.Models;
 using MetaFrm.Management.Razor.ViewModels;
 using MetaFrm.Razor.DataGrid;
-using MetaFrm.Razor.Group;
 using MetaFrm.Service;
 using MetaFrm.Web.Bootstrap;
 using Microsoft.AspNetCore.Components;
@@ -20,27 +19,12 @@ namespace MetaFrm.Management.Razor
         internal A002ViewModel A002ViewModel { get; set; } = Factory.CreateViewModel<A002ViewModel>();
 
         internal DataGridControl<DictionaryModel>? DataGridControl;
-        internal List<ColumnDefinitions>? ColumnDefinitions;
 
         internal DictionaryModel SelectItem = new();
         #endregion
 
 
         #region Init
-        /// <summary>
-        /// OnInitialized
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            if (this.ColumnDefinitions == null)
-            {
-                this.ColumnDefinitions = new();
-                this.ColumnDefinitions.AddRange(new ColumnDefinitions[] {
-                    new ColumnDefinitions{ DataField = nameof(DictionaryModel.CODE), Caption = "Code", DataType = DbType.NVarChar, Class = "text-break", SortDirection = SortDirection.Ascending },
-                    new ColumnDefinitions{ DataField = nameof(DictionaryModel.DESCRIPTION), Caption = "Description", DataType = DbType.NVarChar, Class = "text-break", SortDirection = SortDirection.Normal }});
-            }
-        }
-
         /// <summary>
         /// OnAfterRenderAsync
         /// </summary>
@@ -139,9 +123,7 @@ namespace MetaFrm.Management.Razor
             finally
             {
                 this.A002ViewModel.IsBusy = false;
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
                 this.SetSession(nameof(A002ViewModel), this.A002ViewModel);
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             }
         }
 

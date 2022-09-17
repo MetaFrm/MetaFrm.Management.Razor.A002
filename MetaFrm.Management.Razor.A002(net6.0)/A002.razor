@@ -1,4 +1,5 @@
 ﻿@using MetaFrm.Control
+@using MetaFrm.Database
 @using MetaFrm.Management.Razor.Models
 @using MetaFrm.Razor.Command
 @using MetaFrm.Razor.DataGrid
@@ -13,11 +14,15 @@
 
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-<DataGridControl TItem="DictionaryModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.A002ViewModel.SelectResultModel" PagingEnabled="true"
+<DataGridControl TItem="DictionaryModel" @ref="this.DataGridControl" DataItems="this.A002ViewModel.SelectResultModel" PagingEnabled="true"
                  TableClass="table-hover"
                  RowAdd="this.New"
                  MovePage="this.Search"
-                 RowModify="this.RowModify">
+                 RowModify="this.RowModify"
+                 Columns="@(new ColumnDefinitions[] {
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(DictionaryModel.DICTIONARY_ID), "Dictionary ID", "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(DictionaryModel.CODE), "Code"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(DictionaryModel.DESCRIPTION), "Description", "d-none d-md-table-cell")})">
     <SearchInputControl>
         <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
