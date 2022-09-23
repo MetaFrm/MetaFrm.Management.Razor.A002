@@ -9,7 +9,6 @@
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
 <DataGridControl TItem="DictionaryModel" @ref="this.DataGridControl" DataItems="this.A002ViewModel.SelectResultModel" PagingEnabled="true"
-                 TableClass="table-hover"
                  RowAdd="this.New"
                  MovePage="this.Search"
                  RowModify="this.RowModify"
@@ -27,37 +26,38 @@
     </SearchButtonControl>
 </DataGridControl>
 
-<ModalControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))">
+<ModalControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))"
+              HeaderText="@(this.SelectItem == null || this.SelectItem.DICTIONARY_ID == null ? "New" : "Edit")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="Dictionary ID" Value="this.SelectItem.DICTIONARY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
-            <FieldControl Label="Code">
+            <FieldControl Label="Dictionary ID" Value="this.SelectItem.DICTIONARY_ID"></FieldControl>
+            <FieldControl Label="Code" CssClassAppend="py-2">
                 <Control>
                     <InputText id="code" class="form-control" placeholder="Code" @bind-Value="this.SelectItem.CODE" />
                     <ValidationMessage For="@(()=>this.SelectItem.CODE)" />
                 </Control>
             </FieldControl>
-            <FieldControl Label="Description">
+            <FieldControl Label="Description" CssClassAppend="py-2">
                 <Control>
                     <InputText id="description" class="form-control" placeholder="Description" @bind-Value="this.SelectItem.DESCRIPTION" />
                     <ValidationMessage For="@(()=>this.SelectItem.DESCRIPTION)" />
                 </Control>
             </FieldControl>
-            <FieldControl Label="SQL">
+            <FieldControl Label="SQL" CssClassAppend="py-2">
                 <Control>
                     <InputTextArea id="sql" class="form-control" rows="50" style="height: 340px;" placeholder="SQL" @bind-Value="this.SelectItem.SQL" />
                     <ValidationMessage For="@(()=>this.SelectItem.SQL)" />
                 </Control>
             </FieldControl>
-            <FieldControl Label="Where SQL">
+            <FieldControl Label="Where SQL" CssClassAppend="py-2">
                 <Control>
                     <InputText id="wheresql" class="form-control" placeholder="Where SQL" @bind-Value="this.SelectItem.WHERE_SQL" />
                     <ValidationMessage For="@(()=>this.SelectItem.WHERE_SQL)" />
                 </Control>
             </FieldControl>
-            <FieldControl Label="Order by SQL" CssClassDiv="pt-1 pb-2">
+            <FieldControl Label="Order by SQL" CssClassAppend="py-2">
                 <Control>
                     <InputText id="orderbysql" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.ORDER_BY_SQL" />
                     <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
