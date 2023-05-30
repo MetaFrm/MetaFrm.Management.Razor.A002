@@ -14,8 +14,8 @@ jobs:
       DLL_ID: 9
       DLL_PATH: "MetaFrm.Management.Razor.A002(net6.0)/bin/Release/net6.0/MetaFrm.Management.Razor.A002.dll"
       METAFRM_UPLOADMODULE_URL: "https://download.metafrm.net/github/MetaFrmManagementUploader.zip"
-      METAFRM_UPLOADMODULE_ZIP: "MetaFrmManagementUploader.zip"
-      METAFRM_UPLOADMODULE_FILE: "MetaFrmManagementUploader.dll"
+      METAFRM_UPLOADMODULE_ZIP: "temp/MetaFrmManagementUploader.zip"
+      METAFRM_UPLOADMODULE_FILE: "temp/MetaFrmManagementUploader.dll"
 
     steps:
     - uses: actions/checkout@v3
