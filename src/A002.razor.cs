@@ -56,7 +56,7 @@ namespace MetaFrm.Management.Razor
         {
             if (firstRender)
             {
-                if (!this.IsLogin())
+                if (!this.AuthState.IsLogin())
                     this.Navigation?.NavigateTo("/", true);
 
                 this.A002ViewModel = await this.GetSession<A002ViewModel>(nameof(this.A002ViewModel));
@@ -94,11 +94,11 @@ namespace MetaFrm.Management.Razor
 
                 ServiceData serviceData = new()
                 {
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Search");
                 serviceData["1"].AddParameter(nameof(this.A002ViewModel.SearchModel.SEARCH_TEXT), DbType.NVarChar, 4000, this.A002ViewModel.SearchModel.SEARCH_TEXT);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
                 serviceData["1"].AddParameter("PAGE_NO", DbType.Int, 3, this.DataGridControl != null ? this.DataGridControl.CurrentPageNumber : 1);
                 serviceData["1"].AddParameter("PAGE_SIZE", DbType.Int, 3, this.DataGridControl != null && this.DataGridControl.PagingEnabled ? this.DataGridControl.PagingSize : int.MaxValue);
 
@@ -169,7 +169,7 @@ namespace MetaFrm.Management.Razor
                 ServiceData serviceData = new()
                 {
                     TransactionScope = true,
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Save");
                 serviceData["1"].AddParameter(nameof(this.SelectItem.DICTIONARY_ID), DbType.Int, 3, "2", nameof(this.SelectItem.DICTIONARY_ID), this.SelectItem.DICTIONARY_ID);
@@ -178,7 +178,7 @@ namespace MetaFrm.Management.Razor
                 serviceData["1"].AddParameter(nameof(this.SelectItem.SQL), DbType.VarChar, 8000, this.SelectItem.SQL);
                 serviceData["1"].AddParameter(nameof(this.SelectItem.WHERE_SQL), DbType.NVarChar, 1000, this.SelectItem.WHERE_SQL);
                 serviceData["1"].AddParameter(nameof(this.SelectItem.ORDER_BY_SQL), DbType.NVarChar, 1000, this.SelectItem.ORDER_BY_SQL);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 response = serviceData.ServiceRequest(serviceData);
 
@@ -247,11 +247,11 @@ namespace MetaFrm.Management.Razor
                 ServiceData serviceData = new()
                 {
                     TransactionScope = true,
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Delete");
                 serviceData["1"].AddParameter(nameof(this.SelectItem.DICTIONARY_ID), DbType.Int, 3, this.SelectItem.DICTIONARY_ID);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 response = serviceData.ServiceRequest(serviceData);
 
