@@ -47,5 +47,11 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Display(Name = "Order by SQL")]
         public string? ORDER_BY_SQL { get; set; }
+
+        /// <summary>
+        /// IS_CACHE
+        /// </summary>
+        [Display(Name = "Is cache")]
+        public string? IS_CACHE { get; set; }
     }
 }

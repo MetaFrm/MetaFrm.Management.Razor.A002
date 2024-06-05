@@ -100,6 +100,7 @@ namespace MetaFrm.Management.Razor
                                 SQL = datarow.String(nameof(DictionaryModel.SQL)),
                                 WHERE_SQL = datarow.String(nameof(DictionaryModel.WHERE_SQL)),
                                 ORDER_BY_SQL = datarow.String(nameof(DictionaryModel.ORDER_BY_SQL)),
+                                IS_CACHE = datarow.String(nameof(DictionaryModel.IS_CACHE)),
                             });
                         }
 
@@ -156,6 +157,7 @@ namespace MetaFrm.Management.Razor
                 serviceData["1"].AddParameter(nameof(this.SelectItem.SQL), DbType.VarChar, 8000, this.SelectItem.SQL);
                 serviceData["1"].AddParameter(nameof(this.SelectItem.WHERE_SQL), DbType.NVarChar, 1000, this.SelectItem.WHERE_SQL);
                 serviceData["1"].AddParameter(nameof(this.SelectItem.ORDER_BY_SQL), DbType.NVarChar, 1000, this.SelectItem.ORDER_BY_SQL);
+                serviceData["1"].AddParameter(nameof(this.SelectItem.IS_CACHE), DbType.NVarChar, 1, this.SelectItem.IS_CACHE?.ToUpper());
                 serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 response = serviceData.ServiceRequest(serviceData);
@@ -283,6 +285,7 @@ namespace MetaFrm.Management.Razor
                 SQL = item.SQL,
                 WHERE_SQL = item.WHERE_SQL,
                 ORDER_BY_SQL = item.ORDER_BY_SQL,
+                IS_CACHE = item.IS_CACHE,
             };
         }
 

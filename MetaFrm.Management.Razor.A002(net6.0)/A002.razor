@@ -63,6 +63,12 @@
                     <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
                 </Control>
             </FieldControl>
+            <FieldControl Label="Is cache" CssClassAppend="py-2">
+                <Control>
+                    <InputText id="iscache" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.IS_CACHE" />
+                    <ValidationMessage For="@(()=>this.SelectItem.IS_CACHE)" />
+                </Control>
+            </FieldControl>
 
             <CommandControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
         </EditForm>
