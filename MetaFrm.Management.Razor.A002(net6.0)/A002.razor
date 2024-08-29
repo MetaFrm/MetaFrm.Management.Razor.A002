@@ -13,11 +13,11 @@
                  MovePage="this.Search"
                  RowModify="this.RowModify"
                  Columns="@(new ColumnDefinitions[] {
-                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(DictionaryModel.DICTIONARY_ID), "Dictionary ID", "d-none d-lg-table-cell"),
-                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(DictionaryModel.CODE), "Code"),
-                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(DictionaryModel.DESCRIPTION), "Description", "d-none d-md-table-cell")})">
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(DictionaryModel.DICTIONARY_ID), "ID", "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(DictionaryModel.CODE), "코드"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(DictionaryModel.DESCRIPTION), "설명", "d-none d-md-table-cell")})">
     <SearchInputControl>
-        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+        <input type="text" class="form-control rounded-start" placeholder="@Localization["검색"]" @bind-value="@this.A002ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
     <SearchButtonControl>
         <button class="btn btn-outline-primary btn-rounded-end" type="submit" @onclick="(() => this.OnSearch())">
@@ -27,50 +27,53 @@
 </DataGridControl>
 
 <ModalControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))"
-              HeaderText="@(this.SelectItem == null || this.SelectItem.DICTIONARY_ID == null ? "New" : "Edit")">
+              HeaderText="@(this.SelectItem == null || this.SelectItem.DICTIONARY_ID == null ? "신규" : "수정")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="Dictionary ID" Value="this.SelectItem.DICTIONARY_ID"></FieldControl>
-            <FieldControl Label="Code" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="code" class="form-control" placeholder="Code" @bind-Value="this.SelectItem.CODE" />
-                    <ValidationMessage For="@(()=>this.SelectItem.CODE)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="Description" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="description" class="form-control" placeholder="Description" @bind-Value="this.SelectItem.DESCRIPTION" />
-                    <ValidationMessage For="@(()=>this.SelectItem.DESCRIPTION)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="SQL" CssClassAppend="py-2">
-                <Control>
-                    <InputTextArea id="sql" class="form-control" rows="50" style="height: 340px;" placeholder="SQL" @bind-Value="this.SelectItem.SQL" />
-                    <ValidationMessage For="@(()=>this.SelectItem.SQL)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="Where SQL" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="wheresql" class="form-control" placeholder="Where SQL" @bind-Value="this.SelectItem.WHERE_SQL" />
-                    <ValidationMessage For="@(()=>this.SelectItem.WHERE_SQL)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="Order by SQL" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="orderbysql" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.ORDER_BY_SQL" />
-                    <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="Is cache" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="iscache" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.IS_CACHE" />
-                    <ValidationMessage For="@(()=>this.SelectItem.IS_CACHE)" />
-                </Control>
-            </FieldControl>
+            @if (this.SelectItem != null)
+            {
+                <FieldControl Label="ID" Value="this.SelectItem.DICTIONARY_ID"></FieldControl>
+                <FieldControl Label="코드" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="code" class="form-control" placeholder="@Localization["코드"]" @bind-Value="this.SelectItem.CODE" />
+                        <ValidationMessage For="@(()=>this.SelectItem.CODE)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="설명" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="description" class="form-control" placeholder="@Localization["설명"]" @bind-Value="this.SelectItem.DESCRIPTION" />
+                        <ValidationMessage For="@(()=>this.SelectItem.DESCRIPTION)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="SQL" CssClassAppend="py-2">
+                    <Control>
+                        <InputTextArea id="sql" class="form-control" rows="50" style="height: 340px;" placeholder="SQL" @bind-Value="this.SelectItem.SQL" />
+                        <ValidationMessage For="@(()=>this.SelectItem.SQL)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="Where SQL" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="wheresql" class="form-control" placeholder="Where SQL" @bind-Value="this.SelectItem.WHERE_SQL" />
+                        <ValidationMessage For="@(()=>this.SelectItem.WHERE_SQL)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="Order by SQL" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="orderbysql" class="form-control" placeholder="Order by SQL" @bind-Value="this.SelectItem.ORDER_BY_SQL" />
+                        <ValidationMessage For="@(()=>this.SelectItem.ORDER_BY_SQL)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="캐시" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="iscache" class="form-control" placeholder="@Localization["캐시"]" @bind-Value="this.SelectItem.IS_CACHE" />
+                        <ValidationMessage For="@(()=>this.SelectItem.IS_CACHE)" />
+                    </Control>
+                </FieldControl>
 
-            <CommandControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+                <CommandControl TItem="DictionaryModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.DICTIONARY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+            }
         </EditForm>
     </Control>
 </ModalControl>

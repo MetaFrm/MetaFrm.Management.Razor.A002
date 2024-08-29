@@ -17,7 +17,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(3)]
-        [Display(Name = "Code")]
+        [Display(Name = "코드")]
         public string? CODE { get; set; }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(3)]
-        [Display(Name = "Description")]
+        [Display(Name = "설명")]
         public string? DESCRIPTION { get; set; }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MetaFrm.Management.Razor.Models
         /// <summary>
         /// IS_CACHE
         /// </summary>
-        [Display(Name = "Is cache")]
+        [Display(Name = "캐시")]
         public string? IS_CACHE { get; set; }
     }
 }
